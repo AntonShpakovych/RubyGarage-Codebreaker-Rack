@@ -1,0 +1,9 @@
+
+- :user: !ruby/object:Codebreaker::User
+    name: '1231'
+  :difficulty: :easy
+  :attempts_total: 15
+  :attempts_used: 2
+  :hints_total: 2
+  :hints_used: 2
+  :date: 20/07/2022 18:49
