@@ -6,7 +6,6 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 gem 'codebreaker', git: 'https://github.com/AntonShpakovych/newgemruby', branch: 'development', ref: 'e3033cb'
 gem 'fasterer', '~> 0.10.0'
 gem 'i18n', '~> 1.10.0'
-gem 'pry'
 gem 'rack', '~> 2.2.4'
 gem 'rack-test', '~> 2.0.2'
 gem 'rspec', '~> 3.11.0'

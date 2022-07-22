@@ -3,7 +3,6 @@
 require 'bundler/setup'
 require 'rack'
 require 'erb'
-require 'pry'
 Bundler.require(:default)
 
 require_relative 'helper/constants'
