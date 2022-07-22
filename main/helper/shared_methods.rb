@@ -3,12 +3,8 @@
 module SharedMethod
   private
 
-  def eror_404_not_found
-    respond('404.html')
-  end
-
-  def respond(page)
-    Rack::Response.new(render(page))
+  def respond(page, status = 200)
+    Rack::Response.new(render(page), status)
   end
 
   def render(template)

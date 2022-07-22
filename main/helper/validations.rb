@@ -8,4 +8,12 @@ module Validations
   def session_has_game?
     @request.session.key?(:game)
   end
+
+  def win?
+    @game.win
+  end
+
+  def game_has_attempts?
+    @game.attempts.positive?
+  end
 end

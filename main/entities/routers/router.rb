@@ -1,0 +1,35 @@
+# frozen_string_literal: true
+
+class Router
+  include SharedMethod
+
+  def self.call(env)
+    new(env).routes.finish
+  end
+
+  def initialize(env)
+    @env = env
+    @request = Rack::Request.new(env)
+  end
+
+  def routes
+    case @request.path
+    when '/' then HomeController.new(@request).index
+    when '/statistics' then StatisticsController.new(@request).index
+    when '/rules' then RulesController.new(@request).index
+    when '/game' then GameController.new(@request).game
+    when '/hint' then GameController.new(@request).hint
+    when '/restart' then GameController.new(@request).restart
+    when '/win' then GameController.new(@request).win
+    when '/lose' then GameController.new(@request).lose
+    else
+      eror_404_not_found
+    end
+  end
+
+  private
+
+  def eror_404_not_found
+    respond('404.html', 404)
+  end
+end

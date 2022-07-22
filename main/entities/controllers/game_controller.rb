@@ -1,16 +1,12 @@
 # frozen_string_literal: true
 
-class GameController
-  include Constants
+class GameController < BaseController
   include SharedMethod
   include Validations
+  include Constants
 
-  def self.call(env)
-    new(env).routes
-  end
-
-  def initialize(env)
-    @request = Rack::Request.new(env)
+  def initialize(request)
+    super(request)
     @game = @request.session[:game]
     @result_for_guess = @request.session[:guess]
     @guess_player = @request.session[:answer]
@@ -18,17 +14,6 @@ class GameController
     @total_hints = @request.session[:total_hints]
     @total_attempts = @request.session[:total_attempts]
     @statistics = StatisticsAdapter.new(FILE_NAME)
-  end
-
-  def routes
-    case @request.path
-    when '/game' then game
-    when '/hint' then hint
-    when '/lose' then lose
-    when '/win' then win
-    when '/restart' then restart
-    else redirect('/')
-    end
   end
 
   def game
@@ -68,6 +53,21 @@ class GameController
     @request.session[:guess] = @result_for_guess
   end
 
+  def lose
+    return redirect('/') unless session_has_game?
+    return redirect('/game') if game_has_attempts?
+
+    respond('lose.html.erb')
+  end
+
+  def win
+    return redirect('/') unless session_has_game?
+    return redirect('/game') unless win?
+
+    @statistics.save(@game)
+    respond('win.html.erb')
+  end
+
   def restart
     @request.session.clear
     redirect('/')
@@ -77,22 +77,5 @@ class GameController
 
   def game_response
     respond('game.html.erb')
-  end
-
-  def lose
-    return redirect('/') if @game.nil?
-    return redirect('/game') if @game.attempts.positive?
-
-    @request.session.clear
-    respond('lose.html.erb')
-  end
-
-  def win
-    return redirect('/') if @game.nil?
-    return redirect('/game') unless @game.win
-
-    @statistics.save(@game)
-    @request.session.clear
-    respond('win.html.erb')
   end
 end
