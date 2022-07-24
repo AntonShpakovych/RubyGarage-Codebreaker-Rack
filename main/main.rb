@@ -4,8 +4,7 @@ require 'rack'
 require 'erb'
 require 'bundler/setup'
 
-ENV['RACK_ENV'] = 'development'
-Bundler.require(:default, ENV.fetch('RACK_ENV'))
+Bundler.require(:default)
 
 require_relative 'helper/constants'
 require_relative 'helper/shared_methods'
