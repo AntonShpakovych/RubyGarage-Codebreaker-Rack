@@ -20,6 +20,12 @@ Style/HashSyntax:
 Metrics/AbcSize:
   Enabled: false
 
+Metrics/CyclomaticComplexity:
+  IgnoredMethods: ['routes']
+
+Metrics/MethodLength:
+  IgnoredMethods: ['routes']
+
 Metrics/BlockLength:
   IgnoredMethods: ['describe', 'context']
 

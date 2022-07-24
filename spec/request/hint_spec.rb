@@ -1,4 +1,4 @@
-#frozen_string_literal: true
+# frozen_string_literal: true
 
 RSpec.describe 'spec/request/hint', type: :request do
   include Rack::Test::Methods

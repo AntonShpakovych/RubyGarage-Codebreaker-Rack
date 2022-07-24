@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'main/main'
+require 'delegate'
 
 use Rack::Reloader
 use Rack::Static, :urls => ['/assets'], :root => 'main/templates'

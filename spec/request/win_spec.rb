@@ -1,4 +1,4 @@
-#frozen_string_literal: true
+# frozen_string_literal: true
 
 RSpec.describe 'spec/request/win', type: :request do
   include Rack::Test::Methods
@@ -8,7 +8,6 @@ RSpec.describe 'spec/request/win', type: :request do
   end
   let(:game) { '/game' }
   let(:win) { '/win' }
-
   let(:type) { :easy }
   let(:user) { Codebreaker::User.new('User') }
   let(:game_session) { Codebreaker::Game.new(user: user, type_of_difficulty: type) }
@@ -32,6 +31,10 @@ RSpec.describe 'spec/request/win', type: :request do
       end
 
       context 'when game is win' do
+        after do
+          File.delete(Constants::FILE_NAME)
+        end
+
         before do
           game_session.instance_variable_set(:@win, true)
           env('rack.session', game: game_session, total_attempts: total_attempts, total_hints: total_hints)

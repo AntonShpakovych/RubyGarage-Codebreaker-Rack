@@ -19,10 +19,6 @@ RSpec.describe 'spec/request/statistics', type: :request do
       context 'when statistics empty' do
         let(:file) { Constants::FILE_NAME }
 
-        before do
-          File.delete(file)
-        end
-
         it 'give u message about statistics is empty' do
           get statistics
           expect(last_response.body).to include('There are no winners yet! Be the first!')

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module Constants
-  FILE_NAME = 'default.yml'
+  FILE_NAME = 'statistics.yml'
 end
