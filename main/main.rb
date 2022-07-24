@@ -3,6 +3,8 @@
 require 'rack'
 require 'erb'
 require 'bundler/setup'
+
+ENV['RACK_ENV'] = 'production'
 Bundler.require(:default, ENV.fetch('RACK_ENV'))
 
 require_relative 'helper/constants'
