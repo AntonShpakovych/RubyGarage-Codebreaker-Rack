@@ -14,6 +14,6 @@ module Validations
   end
 
   def game_has_attempts?
-    @game.attempts.positive?
+    @request.session[:game].attempts.positive?
   end
 end

@@ -17,11 +17,11 @@ class Router
     when '/' then HomeController.new(@request).index
     when '/statistics' then StatisticsController.new(@request).index
     when '/rules' then RulesController.new(@request).index
-    when '/game' then GameController.new(@request).game
-    when '/hint' then GameController.new(@request).hint
-    when '/restart' then GameController.new(@request).restart
-    when '/win' then GameController.new(@request).win
-    when '/lose' then GameController.new(@request).lose
+    when '/game' then GameController.new(@request).index
+    when '/hint' then HintController.new(@request).index
+    when '/restart' then RestartController.new(@request).index
+    when '/win' then WinController.new(@request).index
+    when '/lose' then LoseController.new(@request).index
     else
       eror_404_not_found
     end

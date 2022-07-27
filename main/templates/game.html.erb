@@ -19,7 +19,7 @@
               </div>
             </div>
             <p class="lead text-white-70">
-              Hello, <%=@game.user.name %>!
+              Hello, <%=@game.user.name %>! <%=@game.instance_variable_get(:@secret_code)%>
               Try to guess 4-digit number, that consists of numbers in a range from 1 to 6.
             </p>
             <hr class="mb-4">
