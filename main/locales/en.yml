@@ -1,0 +1,49 @@
+en:
+  global:
+        title: Codebreaker Web
+        link_home: Home
+  game:
+      welcome_game: Hello, %{name}!
+                    Try to guess 4-digit number, that consists of numbers in a range from 1 to 6.
+      button_level: "Level:"
+      button_attempts: "Attempts:"
+      button_hints: "Hints:"
+      button_index: +
+      button_include: "-"
+      button_exclude: X
+      button_submit: Submit
+      button_hint: Show hint!
+  win_or_lose:
+      button_level: "Level:"
+      button_attempts_left: "Attempts Left:"
+      button_hints_left: "Hints Left:"
+      button_play_again: Play again!
+      button_statistics: Statistics
+      lose_message: Oops, %{name}! You lose the game!
+      win_message: Congratulations, %{name}! You won the game!
+      secret_code_was: The code was
+  menu:
+    welcome_menu: Try to guess 4-digit number, that consists of numbers in a range from 1 to 6.
+    label_player_name: "Player's name:"
+    label_level: "Game level:"
+    option: Choose game level...
+    option_attempts: "Attempts:"
+    option_hints: "Hints:"
+    button_submit: Start the game!
+    link_rules: Rules
+    link_statistics: Statistics
+  statistics:
+            title: Codebreaker 2022
+            p_top_of_players: "Top of Players:"
+            statistics_empty: There are no winners yet! Be the first!
+            th_rating: "#"
+            th_name: Name
+            th_level: Level
+            th_attempts_left: Attempts Left
+            th_hints_left: Hints Left
+            th_date: Date
+  page_not_found:
+                 h1: 404
+                 span_opps: Opps!
+                 p_not_found: Page not found.
+                 p_not_exist: The page you're looking for doesn't exist.

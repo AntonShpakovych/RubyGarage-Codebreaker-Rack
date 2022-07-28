@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class GameController < BaseController
+class GamesController < BaseController
   include SharedMethod
   include Validations
   include Constants
@@ -14,7 +14,7 @@ class GameController < BaseController
   end
 
   def index
-    return redirect('/') if @game.nil? && valid_data_game?
+    return redirect('/') if @game.nil? && valid_data_game?(@request)
 
     @game.nil? ? create : show
     if @game.win
@@ -22,7 +22,7 @@ class GameController < BaseController
     elsif @game.attempts.zero?
       redirect('/lose')
     else
-      respond('game.html.erb')
+      game_response
     end
   end
 
@@ -42,5 +42,14 @@ class GameController < BaseController
     @request.session[:answer] = @guess_player
     @result_for_guess = @game.my_guess(@guess_player)
     @request.session[:guess] = @result_for_guess
+  end
+
+  private
+
+  def game_response
+    respond('game.html.erb', game: @game,
+                             hints: @hints,
+                             result_for_guess: @result_for_guess,
+                             guess_player: @guess_player)
   end
 end

@@ -5,7 +5,13 @@ ruby '2.7.3'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'codebreaker', git: 'https://github.com/AntonShpakovych/newgemruby', branch: 'development', ref: 'e3033cb'
+
 gem 'rack', '~> 2.2.4'
+gem 'tilt'
+
+group :test, :development do
+  gem 'i18n', '~> 1.10.0'
+end
 
 group :test do
   gem 'rack-test', '~> 2.0.2'

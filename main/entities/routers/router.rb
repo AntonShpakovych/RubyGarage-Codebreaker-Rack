@@ -17,7 +17,7 @@ class Router
     when '/' then HomeController.new(@request).index
     when '/statistics' then StatisticsController.new(@request).index
     when '/rules' then RulesController.new(@request).index
-    when '/game' then GameController.new(@request).index
+    when '/game' then GamesController.new(@request).index
     when '/hint' then HintController.new(@request).index
     when '/restart' then RestartController.new(@request).index
     when '/win' then WinController.new(@request).index
@@ -30,6 +30,6 @@ class Router
   private
 
   def eror_404_not_found
-    respond('404.html', 404)
+    respond('404.html.erb', 404)
   end
 end

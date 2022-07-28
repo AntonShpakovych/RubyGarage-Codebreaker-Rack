@@ -5,9 +5,9 @@ class HomeController < BaseController
   include Validations
 
   def index
-    return redirect('/game') if session_has_game?
+    return redirect('/game') if session_has_game?(@request)
 
     @difficulty = Codebreaker::Constants::Shared::TYPE_OF_DIFFICULTY
-    respond('menu.html.erb')
+    respond('menu.html.erb', difficulty: @difficulty)
   end
 end

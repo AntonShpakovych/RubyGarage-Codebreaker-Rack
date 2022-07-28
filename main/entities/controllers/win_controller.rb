@@ -14,11 +14,11 @@ class WinController < BaseController
   end
 
   def index
-    return redirect('/') unless session_has_game?
-    return redirect('/game') unless win?
+    return redirect('/') unless session_has_game?(@request)
+    return redirect('/game') unless win?(@game)
 
     @statistics.save(@game)
     @request.session.clear
-    respond('win.html.erb')
+    respond('win.html.erb', game: @game, total_attempts: @total_attempts, total_hints: @total_hints)
   end
 end

@@ -6,9 +6,9 @@ class StatisticsController < BaseController
   include Validations
 
   def index
-    return redirect('/game') if session_has_game?
+    return redirect('/game') if session_has_game?(@request)
 
     @statistics = StatisticsAdapter.new(FILE_NAME).take_statistics
-    respond('statistics.html.erb')
+    respond('statistics.html.erb', statistics: @statistics)
   end
 end
