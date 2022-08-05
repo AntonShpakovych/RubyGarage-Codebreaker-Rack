@@ -5,11 +5,6 @@ class GamesController < BaseController
   include Validations
   include Constants
 
-  def initialize(request)
-    super(request)
-    @error = nil
-  end
-
   def create
     return redirect('/') unless valid_params_for_game?(@request)
 

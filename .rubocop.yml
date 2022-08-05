@@ -38,4 +38,3 @@ RSpec/MultipleMemoizedHelpers:
 
 RSpec/VerifiedDoubleReference:
   Enabled: false
-
