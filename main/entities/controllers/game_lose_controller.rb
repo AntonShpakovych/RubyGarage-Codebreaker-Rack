@@ -1,17 +1,10 @@
 # frozen_string_literal: true
 
-class LoseController < BaseController
+class GameLoseController < BaseController
   include SharedMethod
   include Validations
 
-  def initialize(request)
-    super(request)
-    @game = request.session[:game]
-    @total_hints = @request.session[:total_hints]
-    @total_attempts = @request.session[:total_attempts]
-  end
-
-  def index
+  def update
     return redirect('/') unless session_has_game?(@request)
     return redirect('/game') if game_has_attempts?(@request)
 

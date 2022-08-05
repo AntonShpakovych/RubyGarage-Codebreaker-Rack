@@ -7,49 +7,46 @@ class GamesController < BaseController
 
   def initialize(request)
     super(request)
-    @game = @request.session[:game]
-    @result_for_guess = @request.session[:guess]
-    @guess_player = @request.session[:answer]
-    @hints = @request.session[:hints] || []
-  end
-
-  def index
-    return redirect('/') if @game.nil? && valid_data_game?(@request)
-
-    @game.nil? ? create : show
-    if @game.win
-      redirect('/win')
-    elsif @game.attempts.zero?
-      redirect('/lose')
-    else
-      game_response
-    end
+    @error = nil
   end
 
   def create
-    user = Codebreaker::User.new(@request.params['player_name'])
-    difficulty = @request.params['level'].to_sym
-    @game = Codebreaker::Game.new(user: user, type_of_difficulty: difficulty)
+    return redirect('/') unless valid_params_for_game?(@request)
+
+    user =  Codebreaker::User.validate_for_name(@player_name)
+    @game = Codebreaker::Game.new(user: Codebreaker::User.new(user), type_of_difficulty: @player_difficulty.to_sym)
     @request.session[:game] = @game
     @request.session[:total_hints] = @game.hints
     @request.session[:total_attempts] = @game.attempts
+    game_response
+  rescue StandardError => e
+    respond('menu.html.erb', difficulty: DIFFICULTY, error: e)
   end
 
   def show
-    return game_response if @request.params['number'].nil?
+    return game_response unless @request.params.key?('number')
 
-    @guess_player = @request.params['number']
     @request.session[:answer] = @guess_player
     @result_for_guess = @game.my_guess(@guess_player)
     @request.session[:guess] = @result_for_guess
+    game_response
+  rescue StandardError => e
+    @error = [] << e
+    game_response
   end
 
   private
 
   def game_response
-    respond('game.html.erb', game: @game,
-                             hints: @hints,
-                             result_for_guess: @result_for_guess,
-                             guess_player: @guess_player)
+    if @game.win
+      redirect('/win')
+    elsif @game.attempts.zero?
+      redirect('/lose')
+    else
+      respond('game.html.erb', game: @game,
+                               hints: @hints,
+                               result_for_guess: @result_for_guess,
+                               guess_player: @guess_player, error: @error)
+    end
   end
 end

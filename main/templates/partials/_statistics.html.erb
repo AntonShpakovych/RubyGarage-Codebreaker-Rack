@@ -29,7 +29,7 @@
             <% statistics.each.with_index do |stat, index| %>
               <tr>
                   <th scope="col"><%=index + 1%></th>
-                  <th scope="col"><%=stat[:user].name%></th>
+                  <th scope="col"><%=stat[:user]%></th>
                   <th scope="col"><%=stat[:difficulty]%></th>
                   <th scope="col"><%=stat[:attempts_used]%>/<%=stat[:attempts_total]%></th>
                   <th scope="col"><%=stat[:hints_used]%>/<%=stat[:hints_total]%></th>

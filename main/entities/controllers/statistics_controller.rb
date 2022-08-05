@@ -8,7 +8,7 @@ class StatisticsController < BaseController
   def index
     return redirect('/game') if session_has_game?(@request)
 
-    @statistics = StatisticsAdapter.new(FILE_NAME).take_statistics
-    respond('statistics.html.erb', statistics: @statistics)
+    statistics = StatisticsAdapter.new(FILE_NAME).take_statistics
+    respond('statistics.html.erb', statistics: statistics)
   end
 end

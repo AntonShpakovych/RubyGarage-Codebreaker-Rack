@@ -2,9 +2,10 @@ en:
   global:
         title: Codebreaker Web
         link_home: Home
+        default_guess_constant: 1234
   game:
       welcome_game: Hello, %{name}!
-                    Try to guess 4-digit number, that consists of numbers in a range from 1 to 6.
+                    Try to guess %{good_length}-digit number, that consists of numbers in a range from %{min_digit} to %{max_digit}.
       button_level: "Level:"
       button_attempts: "Attempts:"
       button_hints: "Hints:"
@@ -13,6 +14,9 @@ en:
       button_exclude: X
       button_submit: Submit
       button_hint: Show hint!
+      show_game: "%{current_game}"
+      guess_index: 'index'
+      guess_include: 'include'
   win_or_lose:
       button_level: "Level:"
       button_attempts_left: "Attempts Left:"
@@ -23,7 +27,7 @@ en:
       win_message: Congratulations, %{name}! You won the game!
       secret_code_was: The code was
   menu:
-    welcome_menu: Try to guess 4-digit number, that consists of numbers in a range from 1 to 6.
+    welcome_menu: Try to guess %{length}-digit number, that consists of numbers in a range from %{min_digit} to %{max_digit}.
     label_player_name: "Player's name:"
     label_level: "Game level:"
     option: Choose game level...

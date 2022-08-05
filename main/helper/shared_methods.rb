@@ -11,7 +11,7 @@ module SharedMethod
     layout.render { page.render(Object.new, **args) }
   end
 
-  def redirect(page)
-    Rack::Response.new { |response| response.redirect(page) }
+  def redirect(path)
+    Rack::Response.new { |response| response.redirect(path) }
   end
 end

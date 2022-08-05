@@ -1,18 +1,13 @@
 # frozen_string_literal: true
 
-RSpec.describe 'spec/request/home', type: :request do
-  include Rack::Test::Methods
-
-  def app
-    Rack::Builder.parse_file('config.ru').first
-  end
-
+RSpec.describe 'HomeController', type: :request do
   let(:home) { '/' }
 
-  describe '#home' do
+  describe 'GET, #index' do
     context 'when game not in session' do
+      before { get home }
+
       it 'render home' do
-        get home
         expect(last_response).to be_ok
       end
     end
@@ -20,10 +15,10 @@ RSpec.describe 'spec/request/home', type: :request do
     context 'when game in session' do
       before do
         env('rack.session', game: 'game')
+        get home
       end
 
       it 'redirect to game' do
-        get home
         expect(last_response).to be_redirect
       end
     end

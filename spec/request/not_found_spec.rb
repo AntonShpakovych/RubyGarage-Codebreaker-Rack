@@ -1,17 +1,12 @@
 # frozen_string_literal: true
 
-RSpec.describe 'spec/request/not_found', type: :request do
-  include Rack::Test::Methods
-
-  def app
-    Rack::Builder.parse_file('config.ru').first
-  end
-
+RSpec.describe '/not_found', type: :request do
   let(:wrong_path) { '/wrong_path' }
 
-  describe '#error_404_not_found' do
+  describe 'path not_found' do
+    before { get wrong_path }
+
     it 'render home page' do
-      get wrong_path
       expect(last_response).to be_not_found
     end
   end

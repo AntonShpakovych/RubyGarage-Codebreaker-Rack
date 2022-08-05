@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe 'spec/request/win', type: :request do
-  include Rack::Test::Methods
-
-  def app
-    Rack::Builder.parse_file('config.ru').first
-  end
+RSpec.describe 'GameLoseController', type: :request do
   let(:game) { '/game' }
   let(:lose) { '/lose' }
 
@@ -17,15 +12,15 @@ RSpec.describe 'spec/request/win', type: :request do
   let(:total_attempts) { game_session.attempts }
   let(:total_hints) { game_session.hints }
 
-  describe '#win' do
+  describe 'GET, #update' do
     context 'when game in session' do
       context 'when user post not win number but attempts is positive' do
         before do
           env('rack.session', game: game_session, total_attempts: total_attempts, total_hints: total_hints)
+          get lose
         end
 
         it 'redirect to game' do
-          get lose
           expect(last_response).to be_redirect
         end
       end
@@ -35,10 +30,10 @@ RSpec.describe 'spec/request/win', type: :request do
           game_session.instance_variable_set(:@secret_code, test_secret)
           game_session.instance_variable_set(:@attempts, 1)
           env('rack.session', game: game_session)
+          post game, number: lose_number
         end
 
         it 'redirect to lose' do
-          post game, number: lose_number
           expect(last_response).to be_redirect
         end
       end
@@ -47,18 +42,19 @@ RSpec.describe 'spec/request/win', type: :request do
         before do
           game_session.instance_variable_set(:@attempts, 0)
           env('rack.session', game: game_session, total_attempts: total_attempts, total_hints: total_hints)
+          get lose
         end
 
         it 'render lose' do
-          get lose
           expect(last_response).to be_ok
         end
       end
     end
 
     context 'when game not in session' do
+      before { get lose }
+
       it 'redirect to home' do
-        get lose
         expect(last_response).to be_redirect
       end
     end

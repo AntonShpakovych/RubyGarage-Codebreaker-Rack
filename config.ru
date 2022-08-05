@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'main/main'
+require_relative 'main/connection'
 require 'delegate'
 
 use Rack::Reloader

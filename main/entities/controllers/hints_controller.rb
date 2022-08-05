@@ -1,14 +1,8 @@
 # frozen_string_literal: true
 
-class HintController < BaseController
+class HintsController < BaseController
   include SharedMethod
   include Validations
-
-  def initialize(request)
-    super(request)
-    @game = request.session[:game]
-    @hints = @request.session[:hints] || []
-  end
 
   def index
     @hints << @game.give_hints

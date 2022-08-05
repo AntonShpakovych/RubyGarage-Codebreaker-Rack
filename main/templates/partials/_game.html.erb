@@ -5,7 +5,7 @@
     </div>
   </div>
   <p class="lead text-white-70">
-    <%=I18n.t('game.welcome_game', name: game.user.name)%>             
+    <%=I18n.t('game.welcome_game', name: game.user.name, good_length: Codebreaker::Constants::Shared::LENGTH_GOOD, min_digit: Codebreaker::Constants::Shared::CORRECT_RANGE.first, max_digit: Codebreaker::Constants::Shared::CORRECT_RANGE.last)%>
   </p>
   <hr class="mb-4">
   <div class="row">
@@ -35,23 +35,32 @@
 
   <form method="post" action="/game">
     <div class="form-group">
-      <input class="form-control guess_input" name="number" pattern="^[1-6]{4}$" placeholder=<%=guess_player.nil? ? '1234' : guess_player %> required="" autocomplete="off">
+    <% if error %>
+      <% error.each do |s| %>
+          <%=s%>
+      <% end %>
+    <% end %>
+      <input class="form-control guess_input" name="number" placeholder=<%=guess_player.nil? ? I18n.t('global.default_guess_constant') : guess_player %> required="" autocomplete="off">
     </div>
     <div class="form-group guess_markers_list">
       <div id="guess_marker">
-        <% unless result_for_guess.nil? %>
+        <% if result_for_guess %>
+          <% guess_index =  I18n.t('game.guess_index').to_sym
+             guess_include = I18n.t('game.guess_include').to_sym
+             good_length = Codebreaker::Constants::Shared::LENGTH_GOOD
+           %>
           <% result_for_guess.each do |key, value| %>
-            <% if key == :index %>
+            <% if key == guess_index %>
               <% value.times do %>
                 <button type="button" class="btn btn-success marks" disabled><%=I18n.t('game.button_index')%></button>
               <% end %>
-            <% elsif key == :include %>
+            <% elsif key == guess_include %>
               <% value.times do %>
                 <button type="button" class="btn btn-primary marks" disabled><%=I18n.t('game.button_include')%></button>
               <% end %>
             <% end %>
           <% end %>
-          <% @count_missing_digit = 4 - (result_for_guess[:index] + result_for_guess[:include]) %>
+          <% @count_missing_digit = good_length - (result_for_guess[guess_index] + result_for_guess[guess_include]) %>
           <% @count_missing_digit.times do %>
                   <button class="btn btn-danger marks" type="button"><%=I18n.t('game.button_exclude')%></button>
           <% end %>
@@ -63,7 +72,7 @@
       <%=I18n.t('game.button_submit')%>
     </button>
     <% if game.hints.positive?%>
-      <a href='/hint' class="btn btn-warning btn-lg float-right" role="button">
+      <a href='/hints' class="btn btn-warning btn-lg float-right" role="button">
         <%=I18n.t('game.button_hint')%>
           <% hints.each do |hint| %>
             <span class="badge badge-light">

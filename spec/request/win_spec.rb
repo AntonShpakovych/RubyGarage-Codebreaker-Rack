@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe 'spec/request/win', type: :request do
-  include Rack::Test::Methods
-
-  def app
-    Rack::Builder.parse_file('config.ru').first
-  end
+RSpec.describe 'GameWinController', type: :request do
   let(:game) { '/game' }
   let(:win) { '/win' }
   let(:type) { :easy }
@@ -16,16 +11,16 @@ RSpec.describe 'spec/request/win', type: :request do
   let(:total_attempts) { game_session.attempts }
   let(:total_hints) { game_session.hints }
 
-  describe '#win' do
+  describe 'GET, #update' do
     context 'when game in session' do
       context 'when user post win number' do
         before do
           game_session.instance_variable_set(:@secret_code, win_secret)
           env('rack.session', game: game_session)
+          post game, number: win_number
         end
 
         it 'redirect to win' do
-          post game, number: win_number
           expect(last_response).to be_redirect
         end
       end
@@ -38,10 +33,10 @@ RSpec.describe 'spec/request/win', type: :request do
         before do
           game_session.instance_variable_set(:@win, true)
           env('rack.session', game: game_session, total_attempts: total_attempts, total_hints: total_hints)
+          get win
         end
 
         it 'render win' do
-          get win
           expect(last_response).to be_ok
         end
       end
@@ -49,18 +44,19 @@ RSpec.describe 'spec/request/win', type: :request do
       context 'when game is not win' do
         before do
           env('rack.session', game: game_session, total_attempts: total_attempts, total_hints: total_hints)
+          get win
         end
 
         it 'redirect to game' do
-          get win
           expect(last_response).to be_redirect
         end
       end
     end
 
     context 'when game not in session' do
+      before { get win }
+
       it 'redirect to home' do
-        get win
         expect(last_response).to be_redirect
       end
     end

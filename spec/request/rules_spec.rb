@@ -1,18 +1,13 @@
 # frozen_string_literal: true
 
-RSpec.describe 'spec/request/rules', type: :request do
-  include Rack::Test::Methods
-
-  def app
-    Rack::Builder.parse_file('config.ru').first
-  end
-
+RSpec.describe 'RulesController', type: :request do
   let(:rules) { '/rules' }
 
-  describe '#rules' do
+  describe 'GET, #index' do
     context 'when game not in session' do
+      before { get rules }
+
       it 'render rules' do
-        get rules
         expect(last_response).to be_ok
       end
     end
@@ -20,10 +15,10 @@ RSpec.describe 'spec/request/rules', type: :request do
     context 'when game in session' do
       before do
         env('rack.session', game: 'game')
+        get rules
       end
 
       it 'redirect to game' do
-        get rules
         expect(last_response).to be_redirect
       end
     end

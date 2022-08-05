@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Validations
-  def valid_data_game?(request)
-    request.params['player_name'].nil? || request.params['level'].nil?
+  def valid_params_for_game?(request)
+    request.params.key?('player_name') && request.params.key?('level')
   end
 
   def session_has_game?(request)

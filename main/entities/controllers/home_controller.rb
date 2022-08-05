@@ -3,11 +3,11 @@
 class HomeController < BaseController
   include SharedMethod
   include Validations
+  include Constants
 
   def index
     return redirect('/game') if session_has_game?(@request)
 
-    @difficulty = Codebreaker::Constants::Shared::TYPE_OF_DIFFICULTY
-    respond('menu.html.erb', difficulty: @difficulty)
+    respond('menu.html.erb', difficulty: DIFFICULTY, error: '')
   end
 end
