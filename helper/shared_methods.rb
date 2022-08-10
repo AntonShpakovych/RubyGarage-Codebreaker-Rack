@@ -6,8 +6,8 @@ module SharedMethod
   end
 
   def render(template, **args)
-    layout = Tilt.new('main/templates/index.html.erb')
-    page = Tilt.new("main/templates/partials/_#{template}")
+    layout = Tilt.new('templates/index.html.erb')
+    page = Tilt.new("templates/partials/_#{template}")
     layout.render { page.render(Object.new, **args) }
   end
 

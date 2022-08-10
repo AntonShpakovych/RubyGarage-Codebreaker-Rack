@@ -4,6 +4,12 @@ class HintsController < BaseController
   include SharedMethod
   include Validations
 
+  def initialize(request)
+    super(request)
+    @game = @session[:game]
+    @hints = @session[:hints] || []
+  end
+
   def index
     @hints << @game.give_hints
     @request.session[:hints] = @hints

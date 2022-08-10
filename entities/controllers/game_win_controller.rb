@@ -8,6 +8,9 @@ class GameWinController < BaseController
   def initialize(request)
     super(request)
     @statistics = StatisticsAdapter.new(FILE_NAME)
+    @game = @session[:game]
+    @total_hints = @session[:total_hints]
+    @total_attempts = @session[:total_attempts]
   end
 
   def update

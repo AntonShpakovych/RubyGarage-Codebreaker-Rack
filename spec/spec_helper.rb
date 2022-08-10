@@ -9,7 +9,7 @@ SimpleCov.start do
   minimum_coverage 100
 end
 
-require_relative '../main/connection'
+require_relative '../connection'
 
 RSpec.configure do |config|
   config.example_status_persistence_file_path = '.rspec_status'

@@ -4,6 +4,13 @@ class GameLoseController < BaseController
   include SharedMethod
   include Validations
 
+  def initialize(request)
+    super(request)
+    @game = @session[:game]
+    @total_hints = @session[:total_hints]
+    @total_attempts = @session[:total_attempts]
+  end
+
   def update
     return redirect('/') unless session_has_game?(@request)
     return redirect('/game') if game_has_attempts?(@request)
