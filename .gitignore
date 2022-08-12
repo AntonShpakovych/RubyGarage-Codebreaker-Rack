@@ -1,0 +1,4 @@
+/coverage/
+statistics.yml
+.rspec_status
+node_modules/

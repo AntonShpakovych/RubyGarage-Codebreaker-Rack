@@ -1,0 +1,47 @@
+<div class="col-12 col-md-6">
+  <div class="row">
+    <div class="col-md-auto">
+      <h1 class="text-white title"><%=I18n.t('statistics.title')%></h1>
+    </div>
+  </div>
+  <p class="lead text-white-70"><%=I18n.t('statistics.p_top_of_players')%></p>
+  <hr class="mb-4">
+  <div class="table-responsive-md scores">
+    <table class="table table-striped table table-sm">
+        <% if statistics.nil? %>
+        <tr>
+          <th>
+            <%=I18n.t('statistics.statistics_empty')%>
+          </th>
+        </tr>
+        <% else %>
+            <thead>
+              <tr>
+                <th scope="col"><%=I18n.t('statistics.th_rating')%></th>
+                <th scope="col"><%=I18n.t('statistics.th_name')%></th>
+                <th scope="col"><%=I18n.t('statistics.th_level')%></th>
+                <th scope="col"><%=I18n.t('statistics.th_attempts_left')%></th>
+                <th scope="col"><%=I18n.t('statistics.th_hints_left')%></th>
+                <th scope="col"><%=I18n.t('statistics.th_date')%></th>
+              </tr>
+          </thead>
+          <tbody>
+            <% statistics.each.with_index do |stat, index| %>
+              <tr>
+                  <th scope="col"><%=index + 1%></th>
+                  <th scope="col"><%=stat[:user]%></th>
+                  <th scope="col"><%=stat[:difficulty]%></th>
+                  <th scope="col"><%=stat[:attempts_used]%>/<%=stat[:attempts_total]%></th>
+                  <th scope="col"><%=stat[:hints_used]%>/<%=stat[:hints_total]%></th>
+                  <th scope="col"><%=stat[:date]%></th>
+              </tr>
+            <% end %>
+          </tbody>
+        <% end %>
+    </table>
+  </div>
+  <hr class="mb-4">
+  <a class="btn btn-primary btn-lg" href="/" role="button">
+    <%=I18n.t('global.link_home')%>
+  </a>
+</div>
