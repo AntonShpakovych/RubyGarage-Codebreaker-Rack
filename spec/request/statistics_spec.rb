@@ -15,7 +15,7 @@ RSpec.describe 'StatisticsController', type: :request do
         let(:file) { Constants::FILE_NAME }
 
         it 'give u message about statistics is empty' do
-          expect(last_response.body).to include('There are no winners yet! Be the first!')
+          expect(last_response.body).to include(I18n.t('statistics.statistics_empty'))
         end
       end
     end

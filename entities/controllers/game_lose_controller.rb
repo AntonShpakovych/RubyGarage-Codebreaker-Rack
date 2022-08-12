@@ -5,7 +5,7 @@ class GameLoseController < BaseController
   include Validations
 
   def initialize(request)
-    super(request)
+    super
     @game = @session[:game]
     @total_hints = @session[:total_hints]
     @total_attempts = @session[:total_attempts]

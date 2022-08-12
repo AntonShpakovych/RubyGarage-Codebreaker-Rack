@@ -5,7 +5,7 @@ class HintsController < BaseController
   include Validations
 
   def initialize(request)
-    super(request)
+    super
     @game = @session[:game]
     @hints = @session[:hints] || []
   end

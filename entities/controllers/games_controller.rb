@@ -6,7 +6,7 @@ class GamesController < BaseController
   include Constants
 
   def initialize(request)
-    super(request)
+    super
     @game = @session[:game]
     @result_for_guess = @session[:guess]
     @guess_player = @session[:answer]

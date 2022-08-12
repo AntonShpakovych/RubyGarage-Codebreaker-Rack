@@ -6,7 +6,7 @@ class GameWinController < BaseController
   include Constants
 
   def initialize(request)
-    super(request)
+    super
     @statistics = StatisticsAdapter.new(FILE_NAME)
     @game = @session[:game]
     @total_hints = @session[:total_hints]
